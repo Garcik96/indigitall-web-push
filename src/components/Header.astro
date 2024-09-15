@@ -1,0 +1,17 @@
+---
+import ButtonLink from './ButtonLink.astro';
+
+// const { isLoggedIn } = Astro.locals;
+
+// console.log(isLoggedIn);
+---
+
+<header class="absolute left-0 right-0 top-0 flex items-center justify-between gap-4 p-4 shadow-md">
+  <ButtonLink id="home" path="/" buttonClass="bg-transparent hover:bg-transparent">
+    <img class="h-8 w-auto" src="indigitall-logo.webp" alt="" />
+  </ButtonLink>
+  <div class="flex items-center justify-center gap-8">
+    <ButtonLink id="signup" path="signup">Signup</ButtonLink>
+    <ButtonLink id="login" path="login">Login</ButtonLink>
+  </div>
+</header>

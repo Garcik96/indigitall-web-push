@@ -1,0 +1,58 @@
+---
+import Form from '../components/Form.astro';
+import Input from '../components/Input.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Indigitall Web Push - Signup">
+  <Form id="formStep1" submitId="signupStep1" title="Signup - Step 1" labelSubmit="Go to step 2">
+    <Input id="name" type="text" label="Name" />
+    <Input id="birthdate" type="text" label="Birthdate" />
+  </Form>
+
+  <Form id="formStep2" submitId="signupStep2" title="Signup - Step 2" labelSubmit="Go to step 3" formClass="hidden">
+    <Input id="email" type="text" label="Email" />
+    <Input id="email2" type="text" label="Confirm email" />
+  </Form>
+
+  <Form id="formStep3" submitId="signupStep3" title="Signup - Step 3" labelSubmit="Complete Signup" formClass="hidden">
+    <Input id="password" type="password" label="Password" />
+    <Input id="password2" type="password" label="Confirm password" />
+  </Form>
+</Layout>
+
+<script>
+  import { handleUnsubscribeTopicAndSendCustomEvent, topicsSubscribe } from '../api/indigitall';
+
+  window.addEventListener('load', () => {
+    topicsSubscribe(['incomplete_step1', 'incomplete_step2', 'incomplete_step3']);
+  });
+
+  const formStep1 = document.getElementById('formStep1') as HTMLFormElement;
+  const formStep2 = document.getElementById('formStep2') as HTMLFormElement;
+  const formStep3 = document.getElementById('formStep3') as HTMLFormElement;
+
+  formStep1.addEventListener('submit', event => {
+    event.preventDefault();
+    handleUnsubscribeTopicAndSendCustomEvent('incomplete_step1', 'step1');
+    handleChangeForm(formStep1, formStep2);
+  });
+
+  formStep2.addEventListener('submit', event => {
+    event.preventDefault();
+    handleUnsubscribeTopicAndSendCustomEvent('incomplete_step2', 'step2');
+    handleChangeForm(formStep2, formStep3);
+  });
+
+  formStep3.addEventListener('submit', event => {
+    event.preventDefault();
+    handleUnsubscribeTopicAndSendCustomEvent('incomplete_step3', 'newUser').then(() => {
+      window.location.href = '/private-zone';
+    });
+  });
+
+  const handleChangeForm = (currentForm, nextForm) => {
+    currentForm.classList.add('hidden');
+    nextForm.classList.remove('hidden');
+  };
+</script>

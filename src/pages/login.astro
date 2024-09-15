@@ -1,0 +1,30 @@
+---
+import Form from '../components/Form.astro';
+import Input from '../components/Input.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Indigitall Web Push - Login">
+  <Form id="formLogin" submitId="submit" title="Login" labelSubmit="Submit">
+    <Input id="email" type="text" label="Email" />
+    <Input id="password" type="password" label="Password" />
+  </Form>
+</Layout>
+
+<script>
+  import { login } from '../api/indigitall';
+
+  const formLogin = document.getElementById('formLogin') as HTMLFormElement;
+
+  formLogin.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const formData = new FormData(formLogin);
+    const loginId = formData.get('email');
+
+    !!loginId &&
+      login(loginId).then(() => {
+        window.location.href = '/private-zone';
+      });
+  });
+</script>

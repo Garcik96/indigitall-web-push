@@ -1,9 +1,13 @@
 ---
+import '@fontsource/geist-sans';
+import Header from '../components/Header.astro';
+
 interface Props {
   title: string;
 }
 
 const { title } = Astro.props;
+const indigitallApiKey = import.meta.env.INDIGITALL_API_KEY;
 ---
 
 <!doctype html>
@@ -15,8 +19,20 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <script
+      src="/src/sdk/sdk.min.js"
+      onload={`
+        indigitall.init({
+          appKey: '${indigitallApiKey}',
+          workerPath: '/src/sdk/worker.min.js',
+          logLevel: indigitall.LogLevel.DEBUG,
+          requestLocation: true
+        })
+      `}
+      async></script>
   </head>
-  <body>
+  <body class="relative flex h-screen items-center justify-center">
+    <Header />
     <slot />
   </body>
 </html>
