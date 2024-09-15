@@ -20,7 +20,12 @@
   "rules": {
     "semi": ["error", "always"],
     "comma-dangle": ["error", "always-multiline"],
-    "dot-notation": ["allowKeywords", "true"]
+    "dot-notation": "off",
+    "space-before-function-paren": ["error", { "anonymous": "always", "named": "never", "asyncArrow": "always" }],
+    "multiline-ternary": ["error", "never"],
+    "no-unused-vars": "warn",
+    "no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-expressions": "off"
   },
   "overrides": [
     {

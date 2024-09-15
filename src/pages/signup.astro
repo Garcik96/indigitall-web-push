@@ -68,11 +68,13 @@ import Layout from '../layouts/Layout.astro';
 
     handleUnsubscribeTopicAndSendCustomEvent(topic, customEvent).then(() => {
       if (isRedirect) {
-        window.location.href = '/private-zone';
+        window.location.href = '/user-profile';
       }
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     !!currentForm && (currentForm as any).classList.add('hidden');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     !!nextForm && (nextForm as any).classList.remove('hidden');
   };
 </script>

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export const login = loginId => {
   return new Promise((resolve, reject) => {
     indigitall.logIn(
@@ -12,7 +13,7 @@ export const login = loginId => {
   });
 };
 
-export const logout = loginId => {
+export const logout = () => {
   return new Promise((resolve, reject) => {
     indigitall.logOut(
       device => {

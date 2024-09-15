@@ -18,15 +18,28 @@ import Layout from '../layouts/Layout.astro';
     event.preventDefault();
 
     const formData = new FormData(formLogin);
-    const loginId = formData.get('email');
+    const email = formData.get('email');
+    const password = formData.get('password');
 
-    !!loginId && handleLogin(loginId);
+    !!email && !!password && handleLogin(email, password);
   });
 
-  const handleLogin = async loginId => {
+  const handleLogin = async (email, password) => {
     const { login } = await import('../api/indigitall');
-    login(loginId).then(() => {
-      window.location.href = '/private-zone';
+    const { signIn } = await import('auth-astro/client');
+
+    const response = await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (response) {
+      return;
+    }
+
+    login(email).then(() => {
+      window.location.href = '/user-profile';
     });
   };
 </script>

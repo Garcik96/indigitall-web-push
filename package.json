@@ -16,13 +16,20 @@
     "pre-commit": "npx pretty-quick --staged"
   },
   "dependencies": {
+    "@astrojs/db": "^0.14.1",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vercel": "^7.8.1",
+    "@auth/core": "^0.32.0",
     "@fontsource/geist-sans": "^5.1.0",
     "astro": "^4.15.4",
-    "tailwindcss": "^3.4.11"
+    "auth-astro": "^4.1.2",
+    "bcryptjs": "^2.4.3",
+    "tailwindcss": "^3.4.11",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.5.0",
     "@typescript-eslint/parser": "^8.5.0",
     "eslint": "^8.57.0",
