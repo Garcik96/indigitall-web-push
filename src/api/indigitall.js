@@ -72,7 +72,7 @@ export const topicsUnsubscribe = codes => {
   });
 };
 
-export const handleUnsubscribeTopicAndSendCustomEvent = (topic, eventType) => {
+export const handleUnsubscribeTopicAndSendCustomEvent = async (topic, eventType) => {
   return topicsUnsubscribe([topic])
     .then(() => sendCustomEvent(eventType))
     .catch(error => {

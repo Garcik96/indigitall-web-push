@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build --remote",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write .",
@@ -16,6 +16,7 @@
     "pre-commit": "npx pretty-quick --staged"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.3",
     "@astrojs/db": "^0.14.1",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vercel": "^7.8.1",
