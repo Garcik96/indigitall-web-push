@@ -33,26 +33,46 @@ import Layout from '../layouts/Layout.astro';
   const formStep3 = document.getElementById('formStep3') as HTMLFormElement;
 
   formStep1.addEventListener('submit', event => {
-    event.preventDefault();
-    handleUnsubscribeTopicAndSendCustomEvent('incomplete_step1', 'step1');
-    handleChangeForm(formStep1, formStep2);
-  });
-
-  formStep2.addEventListener('submit', event => {
-    event.preventDefault();
-    handleUnsubscribeTopicAndSendCustomEvent('incomplete_step2', 'step2');
-    handleChangeForm(formStep2, formStep3);
-  });
-
-  formStep3.addEventListener('submit', event => {
-    event.preventDefault();
-    handleUnsubscribeTopicAndSendCustomEvent('incomplete_step3', 'newUser').then(() => {
-      window.location.href = '/private-zone';
+    handleSubmit({
+      submitEvent: event,
+      topic: 'incomplete_step1',
+      customEvent: 'step1',
+      currentForm: formStep1,
+      nextForm: formStep2,
     });
   });
 
-  const handleChangeForm = (currentForm, nextForm) => {
-    currentForm.classList.add('hidden');
-    nextForm.classList.remove('hidden');
+  formStep2.addEventListener('submit', event => {
+    handleSubmit({
+      submitEvent: event,
+      topic: 'incomplete_step2',
+      customEvent: 'step2',
+      currentForm: formStep2,
+      nextForm: formStep3,
+    });
+  });
+
+  formStep3.addEventListener('submit', event => {
+    handleSubmit({
+      submitEvent: event,
+      topic: 'incomplete_step3',
+      customEvent: 'newUser',
+      isRedirect: true,
+      currentForm: null,
+      nextForm: null,
+    });
+  });
+
+  const handleSubmit = async ({ submitEvent, topic, customEvent, isRedirect = false, currentForm, nextForm }) => {
+    submitEvent.preventDefault();
+
+    handleUnsubscribeTopicAndSendCustomEvent(topic, customEvent).then(() => {
+      if (isRedirect) {
+        window.location.href = '/private-zone';
+      }
+    });
+
+    !!currentForm && (currentForm as any).classList.add('hidden');
+    !!nextForm && (nextForm as any).classList.remove('hidden');
   };
 </script>

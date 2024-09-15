@@ -12,8 +12,6 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <script>
-  import { login } from '../api/indigitall';
-
   const formLogin = document.getElementById('formLogin') as HTMLFormElement;
 
   formLogin.addEventListener('submit', event => {
@@ -22,9 +20,13 @@ import Layout from '../layouts/Layout.astro';
     const formData = new FormData(formLogin);
     const loginId = formData.get('email');
 
-    !!loginId &&
-      login(loginId).then(() => {
-        window.location.href = '/private-zone';
-      });
+    !!loginId && handleLogin(loginId);
   });
+
+  const handleLogin = async loginId => {
+    const { login } = await import('../api/indigitall');
+    login(loginId).then(() => {
+      window.location.href = '/private-zone';
+    });
+  };
 </script>

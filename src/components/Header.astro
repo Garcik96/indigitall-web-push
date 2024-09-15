@@ -1,17 +1,43 @@
 ---
 import ButtonLink from './ButtonLink.astro';
+// const { signOut } = await import('auth-astro/client');
 
-// const { isLoggedIn } = Astro.locals;
-
-// console.log(isLoggedIn);
+const isLoggedIn = false;
 ---
 
 <header class="absolute left-0 right-0 top-0 flex items-center justify-between gap-4 p-4 shadow-md">
   <ButtonLink id="home" path="/" buttonClass="bg-transparent hover:bg-transparent">
     <img class="h-8 w-auto" src="indigitall-logo.webp" alt="" />
   </ButtonLink>
-  <div class="flex items-center justify-center gap-8">
-    <ButtonLink id="signup" path="signup">Signup</ButtonLink>
-    <ButtonLink id="login" path="login">Login</ButtonLink>
-  </div>
+  {
+    isLoggedIn ? (
+      <button id="logout" class="rounded-md bg-slate-600 px-4 py-2 font-geist text-lg text-slate-50 transition hover:bg-slate-900">
+        Logout
+      </button>
+    ) : (
+      <div class="flex items-center justify-center gap-8">
+        <ButtonLink id="signup" path="signup">
+          Signup
+        </ButtonLink>
+        <ButtonLink id="login" path="login">
+          Login
+        </ButtonLink>
+      </div>
+    )
+  }
 </header>
+
+<script>
+  const logoutButton = document.querySelector('#logout');
+
+  logoutButton!.addEventListener('click', () => {
+    handleLogout();
+  });
+
+  const handleLogout = async () => {
+    const { logout } = await import('../api/indigitall');
+    logout().then(() => {
+      window.location.href = '/';
+    });
+  };
+</script>
