@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-export const login = loginId => {
+export const loginIndigitall = loginId => {
   return new Promise((resolve, reject) => {
     indigitall.logIn(
       loginId,
@@ -13,7 +13,7 @@ export const login = loginId => {
   });
 };
 
-export const logout = () => {
+export const logoutIndigitall = () => {
   return new Promise((resolve, reject) => {
     indigitall.logOut(
       device => {

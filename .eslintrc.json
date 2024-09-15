@@ -25,7 +25,8 @@
     "multiline-ternary": ["error", "never"],
     "no-unused-vars": "warn",
     "no-unused-expressions": "off",
-    "@typescript-eslint/no-unused-expressions": "off"
+    "@typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   },
   "overrides": [
     {

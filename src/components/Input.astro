@@ -3,12 +3,13 @@ interface Props {
   id: string;
   type: string;
   label: string;
+  inputContainerClass?: string;
 }
 
-const { id, type, label } = Astro.props;
+const { id, type, label, inputContainerClass } = Astro.props;
 ---
 
-<div class="relative">
+<div class:list={['relative', inputContainerClass]}>
   <label for={id} class="absolute left-4 top-2 text-slate-400">{label}</label>
   <input
     id={id}

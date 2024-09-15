@@ -5,10 +5,13 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Indigitall Web Push - Login">
-  <Form id="formLogin" submitId="submit" title="Login" labelSubmit="Submit">
-    <Input id="email" type="text" label="Email" />
-    <Input id="password" type="password" label="Password" />
-  </Form>
+  <section class="flex flex-col gap-8">
+    <Form id="formLogin" submitId="submit" title="Login" labelSubmit="Submit">
+      <Input id="email" type="text" label="Email" />
+      <Input id="password" type="password" label="Password" />
+    </Form>
+    <span id="spanAlertError" class="min-h-10 font-geist text-4xl text-red-600"></span>
+  </section>
 </Layout>
 
 <script>
@@ -25,21 +28,15 @@ import Layout from '../layouts/Layout.astro';
   });
 
   const handleLogin = async (email, password) => {
-    const { login } = await import('../api/indigitall');
-    const { signIn } = await import('auth-astro/client');
+    const { loginIndigitall } = await import('../api/indigitall');
+    const { userSignIn } = await import('../auth/auth');
 
-    const response = await signIn('credentials', {
-      email,
-      password,
-      redirect: false,
-    });
-
-    if (response) {
-      return;
-    }
-
-    login(email).then(() => {
-      window.location.href = '/user-profile';
-    });
+    userSignIn(email, password)
+      .then(() => loginIndigitall(email))
+      .then(() => (window.location.href = '/user-profile'))
+      .catch(error => {
+        const spanAlertError = document.getElementById('spanAlertError');
+        spanAlertError!.innerText = error.message;
+      });
   };
 </script>

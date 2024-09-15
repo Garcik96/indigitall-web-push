@@ -1,6 +1,7 @@
 ---
 interface Props {
   id: string;
+  method?: string;
   submitId: string;
   title: string;
   labelSubmit: string;
@@ -8,10 +9,10 @@ interface Props {
   submitClass?: string;
 }
 
-const { id, submitId, title, labelSubmit, formClass, submitClass } = Astro.props;
+const { id, method, submitId, title, labelSubmit, formClass, submitClass } = Astro.props;
 ---
 
-<form id={id} class:list={['flex flex-col gap-6 rounded-md border p-6 font-geist', formClass]}>
+<form method={method} id={id} class:list={['flex flex-col gap-6 rounded-md border p-6 font-geist', formClass]}>
   <h1 class="self-center text-2xl font-bold text-slate-700">{title}</h1>
   <slot />
   <button
